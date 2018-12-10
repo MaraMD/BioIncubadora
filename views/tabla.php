@@ -57,7 +57,7 @@
                                     <?php
                                         include '../conection/conection.php';
                                         $pdo =  Database::connect();
-                                        $sql = 'SELECT * FROM paciente ORDER BY id DESC';
+                                        $sql = "SELECT * FROM paciente ORDER BY id DESC";
                                         foreach($pdo->query($sql) as $row){
                                             echo '<tr>';
                                             echo '<td>'.$row['id'].'</td>';

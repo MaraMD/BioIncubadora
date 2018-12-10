@@ -28,7 +28,7 @@
                             <div class="col-4 text-center">
                                 <form action="../controllers/search.php" method="get">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Ingresa nombre..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <input type="text" class="form-control" placeholder="Ingresa nombre..." name="nombre" aria-label="Recipient's username" aria-describedby="button-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
                                         </div>
@@ -57,25 +57,28 @@
                                
 
                                      <?php
-                                     $name = $_POST['nombre'];
-                                        include '../conection/conection.php';
-                                        $pdo =  Database::connect();
-                                        
-                                        $sql = "SELECT * FROM paciente WHERE cmp_nombre LIKE '%$name%'";
-                                        foreach($pdo->query($sql) as $row){
-                                            echo '<tr>';
-                                            echo '<td>'.$row['id'].'</td>';
-                                            echo '<td>'.$row['cmp_nombre'].'</td>';
-                                            echo '<td>'.$row['cmp_edad'].'</td>';
-                                            echo '<td>'.$row['cmp_direccion'].'</td>';
-                                            echo '<td>'.$row['fecha'].'</td>';
-                                            echo '<td>'.$row['incubadora'].'</td>';
+                                        if (isset($_POST['nombre'])){
 
-                                            echo '<td><a class="btn btn-success" href="editar.php?id='.$row['id'].'">Editar</a> </td>';
-                                            echo '<td><a class="btn btn-success" href="eliminar.php?id='.$row['id'].'">Eliminar</a> </td>';
-                                            echo '</tr>';
+                                            $name = $_POST['nombre'];
+                                            include '../conection/conection.php';
+                                            $pdo =  Database::connect();
+                                            
+                                            $sql = "SELECT * FROM paciente WHERE cmp_nombre LIKE '%$name%'";
+                                            foreach($pdo->query($sql) as $row){
+                                                echo '<tr>';
+                                                echo '<td>'.$row['id'].'</td>';
+                                                echo '<td>'.$row['cmp_nombre'].'</td>';
+                                                echo '<td>'.$row['cmp_edad'].'</td>';
+                                                echo '<td>'.$row['cmp_direccion'].'</td>';
+                                                echo '<td>'.$row['fecha'].'</td>';
+                                                echo '<td>'.$row['incubadora'].'</td>';
+    
+                                                echo '<td><a class="btn btn-success" href="editar.php?id='.$row['id'].'">Editar</a> </td>';
+                                                echo '<td><a class="btn btn-success" href="eliminar.php?id='.$row['id'].'">Eliminar</a> </td>';
+                                                echo '</tr>';
+                                            }
+                                            Database::disconnect();
                                         }
-                                        Database::disconnect();
                                     ?>
                                 </tbody>
                             </table>
